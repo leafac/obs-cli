@@ -20,13 +20,13 @@ $ brew cask install obs obs-websocket && brew install node
 
 ### Installation
 
-You may use obs-cli with [`npx`](https://github.com/npm/npx) without having to explicitly install it, for example:
+You may use obs-cli without having to explicitly install it by relying on [`npx`](https://github.com/npm/npx), for example:
 
 ```console
 $ npx obs-cli StartRecording
 ```
 
-Or you may with to install it in your machine to avoid the `npx` prefix:
+Or you may wish to install obs-cli on your machine to avoid the `npx` prefix:
 
 ```console
 $ npm install --global obs-cli
@@ -38,7 +38,7 @@ Now you may simply run, for example:
 $ npx obs-cli StartRecording
 ```
 
-Finally, you may install obs-cli in a project:
+Finally, you may wish to install obs-cli on a project:
 
 ```console
 $ npm install obs-cli
@@ -64,4 +64,4 @@ Options:
   -h, --help                 display help for command
 ```
 
-obs-cli is a thin wrapper around [obs-websocket-js](https://github.com/haganbmj/obs-websocket-js), which in turn is a wrapper around [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/). Read those projects documentations to learn more about what you can do with obs-cli. In particular, [here’s the list of possible requests](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md).
+obs-cli is a thin wrapper around [obs-websocket-js](https://github.com/haganbmj/obs-websocket-js), which in turn is a wrapper around [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/). Read the documentations for those projects to learn more about what you can do with obs-cli. In particular, [here’s the list of possible requests](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md).
