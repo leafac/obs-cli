@@ -1,0 +1,24 @@
+{
+  "name": "obs-cli",
+  "version": "1.0.0",
+  "description": "Remote control OBS from the command line.",
+  "keywords": [
+    "obs",
+    "streaming",
+    "recording"
+  ],
+  "homepage": "https://github.com/leafac/obs-cli#readme",
+  "bugs": {
+    "url": "https://github.com/leafac/obs-cli/issues"
+  },
+  "license": "MIT",
+  "author": "Leandro Facchinetti <obs-cli@leafac.com> (https://leafac.com)",
+  "bin": {
+    "obs-cli": "index.js"
+  },
+  "repository": "github:leafac/obs-cli",
+  "dependencies": {
+    "commander": "^6.2.0",
+    "obs-websocket-js": "^4.0.2"
+  }
+}
