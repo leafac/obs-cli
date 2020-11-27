@@ -8,9 +8,9 @@
 
 ### Requirements
 
-- [OBS](https://obsproject.com).
-- [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/).
-- [Node.js](https://nodejs.org/).
+- [OBS](https://obsproject.com)
+- [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/)
+- [Node.js](https://nodejs.org/)
 
 In macOS you may use Homebrew to install the requirements:
 
