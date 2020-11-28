@@ -12,7 +12,7 @@
 - [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/)
 - [Node.js](https://nodejs.org/)
 
-In macOS you may use Homebrew to install the requirements:
+In macOS you may use [Homebrew](https://brew.sh) to install the requirements:
 
 ```console
 $ brew cask install obs obs-websocket && brew install node
@@ -62,6 +62,22 @@ Options:
   -a, --address <address>    the address configured in OBS under Tools > WebSockets Server Settings (default: "localhost:4444")
   -p, --password <password>  for example, ‘$up3rSecretP@ssw0rd’
   -h, --help                 display help for command
+```
+
+For example:
+
+```console
+$ npx obs-cli SetRecordingFolder '{ "rec-folder": "/Users/leafac/Videos" }'
+{ 'message-id': '1', status: 'ok', messageId: '1' }
+
+$ npx obs-cli GetRecordingFolder
+{
+  'message-id': '1',
+  'rec-folder': '/Users/leafac/Videos',
+  status: 'ok',
+  messageId: '1',
+  recFolder: '/Users/leafac/Videos'
+}
 ```
 
 obs-cli is a thin wrapper around [obs-websocket-js](https://github.com/haganbmj/obs-websocket-js), which in turn is a wrapper around [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/). Read the documentations for those projects to learn more about what you can do with obs-cli. In particular, [here’s the list of possible requests](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md).
