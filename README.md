@@ -72,11 +72,11 @@ $ npx obs-cli SetRecordingFolder '{ "rec-folder": "/Users/leafac/Videos" }'
 
 $ npx obs-cli GetRecordingFolder
 {
-  'message-id': '1',
-  'rec-folder': '/Users/leafac/Videos',
-  status: 'ok',
-  messageId: '1',
-  recFolder: '/Users/leafac/Videos'
+  "message-id": "1",
+  "rec-folder": "/Users/leafac/Videos",
+  "status": "ok",
+  "messageId": "1",
+  "recFolder": "/Users/leafac/Videos"
 }
 ```
 
