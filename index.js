@@ -35,7 +35,7 @@ const { version } = require("./package.json");
       requestArguments = JSON.parse(rawRequestArguments);
   } catch (error) {
     console.error(
-      `Failed to parse requestArguments: ` + JSON.stringify(error, undefined, 2)
+      `Failed to parse requestArguments\n${JSON.stringify(error, undefined, 2)}`
     );
     process.exit(1);
   }
@@ -45,16 +45,22 @@ const { version } = require("./package.json");
     await obs.connect({ address, password });
   } catch (error) {
     console.error(
-      `Failed to connect to OBS: ` + JSON.stringify(error, undefined, 2)
+      `Failed to connect to OBS:\n${JSON.stringify(error, undefined, 2)}`
     );
     process.exit(1);
   }
   try {
-    console.log(await obs.send(requestName, requestArguments));
+    console.log(
+      JSON.stringify(
+        await obs.send(requestName, requestArguments),
+        undefined,
+        2
+      )
+    );
     await obs.disconnect();
   } catch (error) {
     console.error(
-      `Failed to run request: ` + JSON.stringify(error, undefined, 2)
+      `Failed to run request:\n${JSON.stringify(error, undefined, 2)}`
     );
     process.exit(1);
   }
