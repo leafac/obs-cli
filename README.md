@@ -81,3 +81,5 @@ $ npx obs-cli GetRecordingFolder
 ```
 
 obs-cli is a thin wrapper around [obs-websocket-js](https://github.com/haganbmj/obs-websocket-js), which in turn is a wrapper around [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/). Read the documentations for those projects to learn more about what you can do with obs-cli. In particular, [here’s the list of possible requests](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md).
+
+obs-cli is similar in spirit (and equal in name) to [this other project](https://github.com/muesli/obs-cli). The main differences are: 1. It’s written in Node.js instead of Go; and 2. It [supports authentication](https://github.com/muesli/obs-cli/issues/2) and seems to support a wider variety of requests (everything that obs-websocket itself provides).
