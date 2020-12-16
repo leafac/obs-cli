@@ -20,13 +20,13 @@ $ brew cask install obs obs-websocket && brew install node
 
 ### Installation
 
-You may use obs-cli without having to explicitly install it by relying on [`npx`](https://github.com/npm/npx), for example:
+You may use obs-cli without having to explicitly install it by relying on [`npx`](https://www.npmjs.com/package/npx) (which comes with Node.js), for example:
 
 ```console
 $ npx obs-cli StartRecording
 ```
 
-Or you may wish to install obs-cli on your machine to avoid the `npx` prefix:
+Or you may wish to avoid the `npx` prefix by installing obs-cli on your machine with [`npm`](https://www.npmjs.com/package/npm) (which also comes with Node.js):
 
 ```console
 $ npm install --global obs-cli
@@ -38,7 +38,7 @@ Now you may simply run, for example:
 $ npx obs-cli StartRecording
 ```
 
-Finally, you may wish to install obs-cli on a project:
+Finally, you may wish to install obs-cli on a project managed by `npm`:
 
 ```console
 $ npm install obs-cli
