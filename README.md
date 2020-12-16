@@ -68,7 +68,11 @@ For example:
 
 ```console
 $ npx obs-cli SetRecordingFolder '{ "rec-folder": "/Users/leafac/Videos" }'
-{ 'message-id': '1', status: 'ok', messageId: '1' }
+{
+  "message-id": "1",
+  "status": "ok",
+  "messageId": "1"
+}
 
 $ npx obs-cli GetRecordingFolder
 {
