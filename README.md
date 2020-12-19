@@ -15,7 +15,7 @@
 In macOS you may use [Homebrew](https://brew.sh) to install the requirements:
 
 ```console
-$ brew cask install obs obs-websocket && brew install node
+$ brew install obs obs-websocket node
 ```
 
 ### Installation
