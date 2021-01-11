@@ -5,7 +5,11 @@ const OBSWebSocket = require("obs-websocket-js");
 const { version } = require("./package.json");
 
 (async () => {
-  program
+  const {
+    args: [requestName, requestArgumentsString],
+    address,
+    password,
+  } = program
     .version(version)
     .arguments("<request-name> [request-arguments]")
     .description("Remote control OBS from the command line.", {
@@ -18,25 +22,21 @@ const { version } = require("./package.json");
       "the address configured in OBS under Tools > WebSockets Server Settings",
       "localhost:4444"
     )
-    .option("-p, --password <password>", "for example, ‘$up3rSecretP@ssw0rd’")
+    .option(
+      "-p, --password <password>",
+      "the password configured in OBS under Tools > WebSockets Server Settings"
+    )
     .parse();
-  const {
-    args: [requestName, rawRequestArguments],
-    address,
-    password,
-  } = program;
   if (requestName === undefined) {
     program.outputHelp();
     process.exit(1);
   }
   let requestArguments;
   try {
-    if (rawRequestArguments !== undefined)
-      requestArguments = JSON.parse(rawRequestArguments);
+    if (requestArgumentsString !== undefined)
+      requestArguments = JSON.parse(requestArgumentsString);
   } catch (error) {
-    console.error(
-      `Failed to parse requestArguments\n${JSON.stringify(error, undefined, 2)}`
-    );
+    console.error(`Failed to parse request-arguments: ${error}`);
     process.exit(1);
   }
 
