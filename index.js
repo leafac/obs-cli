@@ -6,12 +6,10 @@ const { version } = require("./package.json");
 
 (async () => {
   const {
-    args: [requestName, requestArgumentsString],
     address,
     password,
+    args: [requestName, requestArgumentsString],
   } = program
-    .version(version)
-    .arguments("<request-name> [request-arguments]")
     .description("Remote control OBS from the command line.", {
       "request-name":
         "for example, ‘SetRecordingFolder’; see https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md for the complete list",
@@ -26,6 +24,8 @@ const { version } = require("./package.json");
       "-p, --password <password>",
       "the password configured in OBS under Tools > WebSockets Server Settings"
     )
+    .arguments("<request-name> [request-arguments]")
+    .version(version)
     .parse();
   if (requestName === undefined) {
     program.outputHelp();
