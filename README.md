@@ -20,13 +20,13 @@ $ brew install obs obs-websocket node
 
 ### Installation
 
-You may use obs-cli without having to explicitly install it by relying on [`npx`](https://www.npmjs.com/package/npx) (which comes with Node.js), for example:
+You may use obs-cli without having to explicitly install it by relying on [`npx`](https://www.npmjs.com/package/npx), which comes with Node.js, for example:
 
 ```console
 $ npx obs-cli StartRecording
 ```
 
-Or you may wish to avoid the `npx` prefix by installing obs-cli on your machine with [`npm`](https://www.npmjs.com/package/npm) (which also comes with Node.js):
+Or you may wish to avoid the `npx` prefix by installing obs-cli on your machine with [`npm`](https://www.npmjs.com/package/npm), which also comes with Node.js:
 
 ```console
 $ npm install --global obs-cli
@@ -35,7 +35,7 @@ $ npm install --global obs-cli
 Now you may simply run, for example:
 
 ```console
-$ npx obs-cli StartRecording
+$ obs-cli StartRecording
 ```
 
 Finally, you may wish to install obs-cli on a project managed by `npm`:
@@ -47,43 +47,68 @@ $ npm install obs-cli
 ### Usage
 
 ```
-Usage: obs-cli [options] <request-name> [request-arguments]
+Usage: obs-cli [options] <request[=arguments]...>
 
 Remote control OBS from the command line.
 
 Arguments:
-  request-name               for example, ‘SetRecordingFolder’; see
-                             https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md for the
-                             complete list
-  request-arguments          for example, ‘{ "rec-folder": "/tmp/" }’
+  request[=arguments]        a request name (for example, ‘GetRecordingFolder’), optionally followed by arguments (for example, ‘SetRecordingFolder={ "rec-folder": "/tmp/" }’) (see
+                             https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md for the complete list of requests and their arguments)
 
 Options:
+  -a, --address <address>    the address to the machine in which OBS is running and the port configured in OBS under Tools > WebSockets Server Settings (default: "localhost:4444")
+  -p, --password <password>  the password configured in OBS under Tools > WebSockets Server Settings
   -V, --version              output the version number
-  -a, --address <address>    the address configured in OBS under Tools > WebSockets Server Settings (default: "localhost:4444")
-  -p, --password <password>  for example, ‘$up3rSecretP@ssw0rd’
   -h, --help                 display help for command
 ```
 
 For example:
 
 ```console
-$ npx obs-cli SetRecordingFolder '{ "rec-folder": "/Users/leafac/Videos" }'
-{
-  "message-id": "1",
-  "status": "ok",
-  "messageId": "1"
-}
-
 $ npx obs-cli GetRecordingFolder
-{
-  "message-id": "1",
-  "rec-folder": "/Users/leafac/Videos",
-  "status": "ok",
-  "messageId": "1",
-  "recFolder": "/Users/leafac/Videos"
-}
+[
+  {
+    "message-id": "1",
+    "rec-folder": "/Users/leafac/Videos",
+    "status": "ok",
+    "messageId": "1",
+    "recFolder": "/Users/leafac/Videos"
+  }
+]
+
+$ npx obs-cli 'SetRecordingFolder={ "rec-folder": "/tmp/" }'
+[
+  {
+    "message-id": "1",
+    "status": "ok",
+    "messageId": "1"
+  }
+]
+
+$ npx obs-cli GetRecordingFolder 'SetRecordingFolder={ "rec-folder": "/Users/leafac/Videos" }' GetRecordingFolder
+[
+  {
+    "message-id": "1",
+    "rec-folder": "/tmp/",
+    "status": "ok",
+    "messageId": "1",
+    "recFolder": "/tmp/"
+  },
+  {
+    "message-id": "2",
+    "status": "ok",
+    "messageId": "2"
+  },
+  {
+    "message-id": "3",
+    "rec-folder": "/Users/leafac/Videos",
+    "status": "ok",
+    "messageId": "3",
+    "recFolder": "/Users/leafac/Videos"
+  }
+]
 ```
 
 obs-cli is a thin wrapper around [obs-websocket-js](https://github.com/haganbmj/obs-websocket-js), which in turn is a wrapper around [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/). Read the documentations for those projects to learn more about what you can do with obs-cli. In particular, [here’s the list of possible requests](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md).
 
-obs-cli is similar in spirit (and equal in name) to [this other project](https://github.com/muesli/obs-cli). The main differences are: 1. It’s written in Node.js instead of Go; and 2. It [supports authentication](https://github.com/muesli/obs-cli/issues/2) and seems to support a wider variety of requests (everything that obs-websocket itself provides).
+obs-cli is similar in spirit (and equal in name) to [this other project](https://github.com/muesli/obs-cli). The main differences are: 1. It’s written in Node.js instead of Go; and 2. It [supports authentication](https://github.com/muesli/obs-cli/issues/2) and everything else that obs-websocket provides, while that other project, judging by its documentation, seems to support only a few kinds of requests.
