@@ -19,7 +19,7 @@ $ brew install obs obs-websocket
 
 ### Installation
 
-#### Option 1: Just Grab the Executable
+#### Option 1: Download the Executable
 
 <https://github.com/leafac/obs-cli/releases/latest>
 
