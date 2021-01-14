@@ -76,6 +76,9 @@ $ npx obs-cli GetRecordingFolder
   }
 ]
 
+$ npx obs-cli --field 0.rec-folder GetRecordingFolder
+/Users/leafac/Videos
+
 $ npx obs-cli SetRecordingFolder='{ "rec-folder": "/tmp/" }'
 [
   {
