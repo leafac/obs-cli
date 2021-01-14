@@ -1,6 +1,6 @@
 {
   "name": "obs-cli",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Remote control OBS from the command line.",
   "scripts": {
     "pkg": "pkg --targets latest-macos,latest-win,latest-linux --out-path pkg ."
