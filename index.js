@@ -65,8 +65,6 @@ program
           : JSON.stringify(error, undefined, 2)
       );
       process.exit(1);
-    } finally {
-      if (obs !== undefined) await obs.disconnect();
     }
   })
   .version(version)
