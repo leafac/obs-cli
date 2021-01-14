@@ -2,6 +2,9 @@
   "name": "obs-cli",
   "version": "2.0.1",
   "description": "Remote control OBS from the command line.",
+  "scripts": {
+    "pkg": "pkg --targets latest-macos,latest-win,latest-linux --out-path pkg ."
+  },
   "keywords": [
     "obs",
     "streaming",
@@ -20,5 +23,8 @@
   "dependencies": {
     "commander": "^6.2.0",
     "obs-websocket-js": "^4.0.2"
+  },
+  "devDependencies": {
+    "pkg": "^4.4.9"
   }
 }
