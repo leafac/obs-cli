@@ -14,11 +14,15 @@ program
     "-p, --password <password>",
     "the password configured in OBS under Tools > WebSockets Server Settings"
   )
+  .option(
+    "-f, --field <field>",
+    `project a field out of the OBS response, for example, given an OBS response of ‘[{ ..., "streaming": false, ...}]’ and a <field> of ‘0.streaming’, obs-cli outputs just ‘false’; this is a convenience for applications that need only one part of the response`
+  )
   .arguments("<request[=arguments]...>")
   .description("Remote control OBS from the command line.", {
     "request[=arguments]": `a request name (for example, ‘GetRecordingFolder’), optionally followed by arguments (for example, ‘SetRecordingFolder='{ "rec-folder": "/tmp/" }'’) (see https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md for the complete list of requests and their arguments)`,
   })
-  .action(async (requestsStrings, { address, password }) => {
+  .action(async (requestsStrings, { address, password, field }) => {
     let obs;
     try {
       const requests = [];
@@ -37,8 +41,23 @@ program
       await obs.connect({ address, password });
       for (const request of requests)
         responses.push(await obs.send(...request));
+      await obs.disconnect();
 
-      console.log(JSON.stringify(responses, undefined, 2));
+      let output = responses;
+      const fieldParts = field === undefined ? [] : field.split(".");
+      for (const fieldPart of fieldParts) {
+        if (typeof output !== "object")
+          throw new Error(`Failed to find field ‘${fieldPart}’`);
+        output = output[fieldPart];
+        if (output === undefined)
+          throw new Error(`Failed to find field ‘${fieldPart}’`);
+      }
+
+      console.log(
+        typeof output === "string"
+          ? output
+          : JSON.stringify(output, undefined, 2)
+      );
     } catch (error) {
       console.error(
         error instanceof Error
