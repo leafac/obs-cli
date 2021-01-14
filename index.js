@@ -19,6 +19,7 @@ program
     "request[=arguments]": `a request name (for example, ‘GetRecordingFolder’), optionally followed by arguments (for example, ‘SetRecordingFolder='{ "rec-folder": "/tmp/" }'’) (see https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md for the complete list of requests and their arguments)`,
   })
   .action(async (requestsStrings, { address, password }) => {
+    let obs;
     try {
       const requests = [];
       for (const request of requestsStrings) {
@@ -32,11 +33,10 @@ program
       }
 
       const responses = [];
-      const obs = new OBSWebSocket();
+      obs = new OBSWebSocket();
       await obs.connect({ address, password });
       for (const request of requests)
         responses.push(await obs.send(...request));
-      await obs.disconnect();
 
       console.log(JSON.stringify(responses, undefined, 2));
     } catch (error) {
@@ -46,6 +46,8 @@ program
           : JSON.stringify(error, undefined, 2)
       );
       process.exit(1);
+    } finally {
+      if (obs !== undefined) await obs.disconnect();
     }
   })
   .version(version)
