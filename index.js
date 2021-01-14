@@ -16,7 +16,7 @@ program
   )
   .arguments("<request[=arguments]...>")
   .description("Remote control OBS from the command line.", {
-    "request[=arguments]": `a request name (for example, ‘GetRecordingFolder’), optionally followed by arguments (for example, ‘SetRecordingFolder={ "rec-folder": "/tmp/" }’) (see https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md for the complete list of requests and their arguments)`,
+    "request[=arguments]": `a request name (for example, ‘GetRecordingFolder’), optionally followed by arguments (for example, ‘SetRecordingFolder='{ "rec-folder": "/tmp/" }'’) (see https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md for the complete list of requests and their arguments)`,
   })
   .action(async (requestsStrings, { address, password }) => {
     try {

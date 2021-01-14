@@ -52,7 +52,7 @@ Usage: obs-cli [options] <request[=arguments]...>
 Remote control OBS from the command line.
 
 Arguments:
-  request[=arguments]        a request name (for example, ‘GetRecordingFolder’), optionally followed by arguments (for example, ‘SetRecordingFolder={ "rec-folder": "/tmp/" }’) (see
+  request[=arguments]        a request name (for example, ‘GetRecordingFolder’), optionally followed by arguments (for example, ‘SetRecordingFolder='{ "rec-folder": "/tmp/" }'’) (see
                              https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md for the complete list of requests and their arguments)
 
 Options:
@@ -76,7 +76,7 @@ $ npx obs-cli GetRecordingFolder
   }
 ]
 
-$ npx obs-cli 'SetRecordingFolder={ "rec-folder": "/tmp/" }'
+$ npx obs-cli SetRecordingFolder='{ "rec-folder": "/tmp/" }'
 [
   {
     "message-id": "1",
@@ -85,7 +85,7 @@ $ npx obs-cli 'SetRecordingFolder={ "rec-folder": "/tmp/" }'
   }
 ]
 
-$ npx obs-cli GetRecordingFolder 'SetRecordingFolder={ "rec-folder": "/Users/leafac/Videos" }' GetRecordingFolder
+$ npx obs-cli GetRecordingFolder SetRecordingFolder='{ "rec-folder": "/Users/leafac/Videos" }' GetRecordingFolder
 [
   {
     "message-id": "1",
