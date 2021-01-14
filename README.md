@@ -10,23 +10,34 @@
 
 - [OBS](https://obsproject.com)
 - [obs-websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/)
-- [Node.js](https://nodejs.org/)
 
-In macOS you may use [Homebrew](https://brew.sh) to install the requirements:
+In macOS you may install the requirements with [Homebrew](https://brew.sh):
 
 ```console
-$ brew install obs obs-websocket node
+$ brew install obs obs-websocket
 ```
 
 ### Installation
 
-You may use obs-cli without having to explicitly install it by relying on [`npx`](https://www.npmjs.com/package/npx), which comes with Node.js, for example:
+#### Option 1: Just Grab the Executables
+
+<https://github.com/leafac/obs-cli/releases/latest>
+
+#### Option 2: Use [`npm`](https://www.npmjs.com)
+
+For this option you must have [Node.js](https://nodejs.org/) installed. In macOS you may install it with [Homebrew](https://brew.sh):
+
+```console
+$ brew install node
+```
+
+You may install obs-cli implicitly on first use by relying on `npx`, which comes with Node.js, for example:
 
 ```console
 $ npx obs-cli StartRecording
 ```
 
-Or you may wish to avoid the `npx` prefix by installing obs-cli on your machine with [`npm`](https://www.npmjs.com/package/npm), which also comes with Node.js:
+Or you may wish to avoid the `npx` prefix with an explicit global installation of obs-cli through `npm`, which also comes with Node.js:
 
 ```console
 $ npm install --global obs-cli
