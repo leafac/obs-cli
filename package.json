@@ -3,7 +3,7 @@
   "version": "2.2.1",
   "description": "Remote control OBS from the command line.",
   "scripts": {
-    "pkg": "pkg --targets latest-macos,latest-win,latest-linux --out-path pkg ."
+    "build": "pkg --targets latest-macos,latest-win,latest-linux --out-path pkg ."
   },
   "keywords": [
     "obs",
