@@ -3,6 +3,7 @@
   "version": "2.2.1",
   "description": "Remote control OBS from the command line.",
   "scripts": {
+    "test": "prettier --check \"index.js\" --end-of-line auto",
     "build": "pkg --targets latest-macos,latest-win,latest-linux --out-path pkg ."
   },
   "keywords": [
@@ -21,6 +22,7 @@
     "obs-websocket-js": "^4.0.2"
   },
   "devDependencies": {
-    "pkg": "^4.4.9"
+    "pkg": "^4.4.9",
+    "prettier": "^2.2.1"
   }
 }
