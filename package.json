@@ -11,15 +11,11 @@
     "recording"
   ],
   "homepage": "https://github.com/leafac/obs-cli#readme",
-  "bugs": {
-    "url": "https://github.com/leafac/obs-cli/issues"
-  },
+  "bugs": "https://github.com/leafac/obs-cli/issues",
   "license": "MIT",
   "author": "Leandro Facchinetti <obs-cli@leafac.com> (https://leafac.com)",
-  "bin": {
-    "obs-cli": "index.js"
-  },
-  "repository": "github:leafac/obs-cli",
+  "bin": "index.js",
+  "repository": "leafac/obs-cli",
   "dependencies": {
     "commander": "^6.2.0",
     "obs-websocket-js": "^4.0.2"
