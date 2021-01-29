@@ -1,6 +1,6 @@
 {
   "name": "obs-cli",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Remote control OBS from the command line.",
   "scripts": {
     "test": "prettier --check \"index.js\" --end-of-line auto",
@@ -15,7 +15,9 @@
   "bugs": "https://github.com/leafac/obs-cli/issues",
   "license": "MIT",
   "author": "Leandro Facchinetti <obs-cli@leafac.com> (https://leafac.com)",
-  "bin": "index.js",
+  "bin": {
+    "obs-cli": "index.js"
+  },
   "repository": "leafac/obs-cli",
   "dependencies": {
     "commander": "^6.2.0",
