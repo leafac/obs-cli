@@ -4,7 +4,7 @@
   "description": "Remote control OBS from the command line.",
   "scripts": {
     "test": "prettier --check \"index.js\" --end-of-line auto",
-    "build": "pkg --targets latest-macos,latest-win,latest-linux --out-path pkg ."
+    "build": "pkg --targets latest-macos,latest-linux,latest-win --out-path pkg ."
   },
   "keywords": [
     "obs",
