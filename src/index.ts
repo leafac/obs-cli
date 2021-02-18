@@ -31,7 +31,7 @@ Examples:
 
   A request without extra arguments:
 
-    $ obs-cli '{ "request-type": "GetStreamingStatus", "message-id": "1" }' 
+    $ obs-cli '{ "request-type": "GetStreamingStatus", "message-id": "1" }'
     {
         "message-id": "1",
         "preview-only": false,
@@ -75,15 +75,6 @@ Examples:
 
   The ‘--get’ option:
 
-    $ obs-cli '{ "request-type": "GetStreamingStatus", "message-id": "1" }' 
-    {
-        "message-id": "1",
-        "preview-only": false,
-        "recording": false,
-        "recording-paused": false,
-        "status": "ok",
-        "streaming": false
-    }
     $ obs-cli --get recording-paused '{ "request-type": "GetStreamingStatus", "message-id": "1" }'
     false
 
