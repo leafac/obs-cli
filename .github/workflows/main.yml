@@ -1,50 +1,108 @@
 on: push
 jobs:
-  main:
+  insiders-build:
+    strategy:
+      matrix:
+        os: [windows, macos, ubuntu]
+        include:
+          - os: windows
+            build: npx caxa --directory . --command "{{caxa}}/node_modules/.bin/node" "{{caxa}}/distribution/index.js" --output "obs-cli--windows--${{ github.sha }}.exe"
+            artifact: obs-cli--windows--${{ github.sha }}.exe
+          - os: macos
+            build: |
+              npx caxa --directory . --command "{{caxa}}/node_modules/.bin/node" "{{caxa}}/distribution/index.js" --output "obs-cli"
+              tar -czf "obs-cli--macos--${{ github.sha }}.tgz" "obs-cli"
+            artifact: obs-cli--macos--${{ github.sha }}.tgz
+          - os: ubuntu
+            build: |
+              npx caxa --directory . --command "{{caxa}}/node_modules/.bin/node" "{{caxa}}/distribution/index.js" --output "obs-cli"
+              tar -czf "obs-cli--linux--${{ github.sha }}.tgz" "obs-cli"
+            artifact: obs-cli--linux--${{ github.sha }}.tgz
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - run: |
+          npm ci
+          ${{ matrix.build }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.artifact }}
+
+  test:
+    strategy:
+      matrix:
+        os: [windows, macos, ubuntu]
+        node-version: [14, 15, 16]
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install-ci-test
+
+  npm-publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 15
+          node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm install-ci-test
-      - run: npm run build && npm publish
-        if: startsWith(github.ref, 'refs/tags/v')
+      - run: npm ci && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [insiders-build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: obs-cli--windows--${{ github.sha }}.exe
+      - uses: actions/download-artifact@v2
+        with:
+          name: obs-cli--macos--${{ github.sha }}.tgz
+      - uses: actions/download-artifact@v2
+        with:
+          name: obs-cli--linux--${{ github.sha }}.tgz
+      - run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
+        id: tag
       - uses: actions/create-release@v1
-        if: startsWith(github.ref, 'refs/tags/v')
         id: create-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ steps.tag.outputs.tag }}
+          release_name: Release ${{ steps.tag.outputs.tag }}
       - uses: actions/upload-release-asset@v1
-        if: startsWith(github.ref, 'refs/tags/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: pkg/obs-cli-macos
-          asset_name: obs-cli-macos
-          asset_content_type: application/octet-stream
-      - uses: actions/upload-release-asset@v1
-        if: startsWith(github.ref, 'refs/tags/v')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: pkg/obs-cli-linux
-          asset_name: obs-cli-linux
-          asset_content_type: application/octet-stream
-      - uses: actions/upload-release-asset@v1
-        if: startsWith(github.ref, 'refs/tags/v')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: pkg/obs-cli-win.exe
-          asset_name: obs-cli-win.exe
+          asset_path: obs-cli--windows--${{ github.sha }}.exe
+          asset_name: obs-cli--windows--${{ steps.tag.outputs.tag }}.exe
           asset_content_type: application/vnd.microsoft.portable-executable
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: obs-cli--macos--${{ github.sha }}.tgz
+          asset_name: obs-cli--macos--${{ steps.tag.outputs.tag }}.tgz
+          asset_content_type: application/gzip
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: obs-cli--linux--${{ github.sha }}.tgz
+          asset_name: obs-cli--linux--${{ steps.tag.outputs.tag }}.tgz
+          asset_content_type: application/gzip

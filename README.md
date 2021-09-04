@@ -1,3 +1,11 @@
+
+- [ ] Binary releases:
+    - [ ] Have both a tarball and a plain executable
+    - [ ] The tarball is good because it keeps the mode of the file (executable, +x)
+    - [ ] The plain executables are good because of my REAPER actions (ReaPack can’t uncompress)
+- [ ] Use deno?
+- [ ] Use obs-websocket-js again?
+
 <h1 align="center">obs-cli</h1>
 <h3 align="center">Remote control OBS from the command line</h3>
 <p align="center">
