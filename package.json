@@ -11,10 +11,16 @@
     "streaming",
     "recording"
   ],
-  "homepage": "https://github.com/leafac/obs-cli#readme",
+  "homepage": "https://github.com/leafac/obs-cli",
   "bugs": "https://github.com/leafac/obs-cli/issues",
   "license": "MIT",
   "author": "Leandro Facchinetti <obs-cli@leafac.com> (https://leafac.com)",
+  "funding": [
+    "https://patreon.com/leafac",
+    "https://paypal.me/LeandroFacchinettiEU",
+    "https://github.com/sponsors/leafac",
+    "https://btc.com/34KJBgtaFYMtDqpSgMayw9qiKWg2GQXA9M"
+  ],
   "bin": "distribution/index.js",
   "repository": "leafac/obs-cli",
   "dependencies": {

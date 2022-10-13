@@ -20,14 +20,14 @@ jobs:
             artifact: obs-cli--linux--${{ github.sha }}.tgz
     runs-on: ${{ matrix.os }}-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - run: |
           npm ci
           ${{ matrix.build }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.artifact }}
           path: ${{ matrix.artifact }}
@@ -36,11 +36,11 @@ jobs:
     strategy:
       matrix:
         os: [windows, macos, ubuntu]
-        node-version: [14, 15, 16]
+        node-version: [18]
     runs-on: ${{ matrix.os }}-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install-ci-test
@@ -50,10 +50,10 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: https://registry.npmjs.org/
       - run: npm ci && npm publish
         env:
@@ -64,13 +64,13 @@ jobs:
     needs: [insiders-build, test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: obs-cli--windows--${{ github.sha }}.exe
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: obs-cli--macos--${{ github.sha }}.tgz
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: obs-cli--linux--${{ github.sha }}.tgz
       - run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
