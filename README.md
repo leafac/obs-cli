@@ -5,6 +5,7 @@
     - [ ] The plain executables are good because of my REAPER actions (ReaPack can’t uncompress)
 - [ ] Use deno?
 - [ ] Use obs-websocket-js again?
+- Marco Scalet
 
 <h1 align="center">obs-cli</h1>
 <h3 align="center">Remote control OBS from the command line</h3>
