@@ -3,7 +3,7 @@
   "version": "2.2.3",
   "description": "Remote control OBS from the command line.",
   "scripts": {
-    "test": "prettier --check \"source/**/*\" --end-of-line auto && jest",
+    "test": "prettier --check \"./source/**/*\" --end-of-line auto && jest",
     "prepare": "tsc"
   },
   "keywords": [
